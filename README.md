@@ -33,7 +33,8 @@ All core modding prerequisites and script files have been placed directly into y
 | `ScriptHookV.dll` | ScriptHookV runtime compatible with GTA V v1.0.3889.0 |
 | `ScriptHookVDotNet.asi` | ScriptHookV .NET v3.7.0 runtime bridge |
 | `ScriptHookVDotNet2.dll` / `ScriptHookVDotNet3.dll` | SHVDN API assemblies |
-| `ScriptHookVDotNet.ini` | SHVDN configuration (Console: `F4`, Reload: `Insert`) |
+| `ScriptHookVDotNet.ini` | SHVDN configuration (Console: `F5`, Reload: `Insert`) |
+| `NativeTrainer.asi` | ScriptHookV Native Trainer (Menu: `F4`, Numpad navigation) |
 | `RageOpenV.asi` | Open-source RPF archive loader for the `mods` folder |
 | `scripts/BeastGlove.dll` | Precompiled Beast Glove mod library |
 | `scripts/BeastGlove.cs` | Source script for Beast Glove |
