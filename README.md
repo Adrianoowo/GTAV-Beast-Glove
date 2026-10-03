@@ -1,47 +1,46 @@
 # BEAST Glove Mod for GTA V (Legacy Edition)
 
-An authentic simulation of the **BEAST Glove** (inspired by glove combat games like Slap Battles) for **Grand Theft Auto V Legacy** (`v1.0.3889.0`), built with native **ERO (Euphoria Ragdoll Overhaul 1.9.4)** compatibility.
+Authentic **BEAST Glove** physics simulation for **Grand Theft Auto V Legacy** (`v1.0.3889.0`), integrated natively with **ERO (Euphoria Ragdoll Overhaul 1.9.4)**.
 
 ---
 
 ## 🥊 Features
 
-- **Knuckle Duster Integration**: Uses the Knuckle Duster (`WEAPON_KNUCKLE`) as the Beast Glove.
-- **Physics-Accurate 45° Launch**: Catapults any target struck approximately **100 meters** into the air at a precise **45-degree angle**, following a parabolic flight arc.
-- **ERO (Euphoria Ragdoll Overhaul) Compatible**:
-  - Automatically suppresses ERO's stumble-balancer joint resistance at the moment of impact so targets aren't pinned down or slowed by ground friction.
-  - Maintains relaxed ragdoll (`CTaskNMRelax`, type 0) throughout the high-velocity flight arc.
-  - Re-engages ERO's NaturalMotion behaviours on ground impact, allowing full Euphoria tumbling, slope rolling, and post-crash wound reactions.
-- **Punch Feedback**:
-  - **Shockwave PTFX**: Non-damaging air-burst dust shockwave effect (`exp_grd_grenade_lod`) spawned at the strike point.
-  - **Audio Blast**: Deep air-pop impact boom (`BASEJUMP_PULL_CHUTE`).
-  - **Screen Shake**: High-impact camera shake (`SMALL_EXPLOSION_SHAKE`).
-- **Vehicle Knockback**: Punching vehicles also launches them through the air with tuned vehicle mass multipliers.
-- **Quick-Equip Hotkey**: Press **`B`** (configurable) to instantly acquire and equip the Knuckle Duster / Beast Glove.
-- **Fully Configurable**: All speeds, angles, durations, effects, and hotkeys can be customized in `BeastGlove.ini`.
+- **Confirmed Hit Detection**: Triggers **only** when a punch with the Knuckle Duster (`WEAPON_KNUCKLE`) physically connects and inflicts damage. Zero premature launches during lock-on, lunges, or wind-ups; zero double launches.
+- **Natural Euphoria Ragdoll**: Peds are launched into an upward parabolic arc with authentic backflip torque and corkscrew rotation. Euphoria is given 100% free reign (`bForceScriptControl = false`), so limbs flail dynamically in the air and realistic tumble physics play out upon impact.
+- **Dynamic Vehicle Launches**: Punching vehicles launches them with off-center rotational torque, producing dramatic aerial spins, barrel rolls, and high-impact crashes.
+- **ERO (Euphoria Ragdoll Overhaul 1.9.4) Active**:
+  - `behaviours.xml` and `physicstasks.ymt` installed directly into `mods/update/update.rpf`, `mods/common.rpf`, and `mods/x64a.rpf`.
+  - Loaded dynamically by `RageOpenV.asi` and `dinput8.dll`.
+  - Peds tumble, roll down slopes, and react brutally upon landing using ERO's authentic physics.
+- **Audio & Visuals**:
+  - Clean supersonic dust shockwave ring (`bul_sand_dust`).
+  - Punch impact boom sound (`BASEJUMP_PULL_CHUTE`).
+  - Physical camera shake on hit (`SMALL_EXPLOSION_SHAKE`).
+- **Clean & Immersive**: No on-screen notification spam and no hotkey overrides. Simply equip the Knuckle Duster from your weapon wheel or trainer and punch.
 
 ---
 
-## 📂 File Installation Status
+## 📂 Installation Layout
 
-All core modding prerequisites and script files have been placed directly into your GTA V directory (`D:\SteamLibrary\steamapps\common\Grand Theft Auto V`):
+All files are installed in your GTA V directory (`D:\SteamLibrary\steamapps\common\Grand Theft Auto V`):
 
-| File / Folder | Purpose |
+| File / Folder | Description |
 |---|---|
-| `args.txt` | Disables BattlEye anticheat (`-nobattleye -noBE`) so singleplayer mods load smoothly |
-| `dinput8.dll` | Standard ASI loader |
-| `ScriptHookV.dll` | ScriptHookV runtime compatible with GTA V v1.0.3889.0 |
+| `args.txt` | Disables BattlEye anticheat for singleplayer modding |
+| `dinput8.dll` | ASI loader |
+| `ScriptHookV.dll` | ScriptHookV runtime (v1.0.3889.0) |
 | `ScriptHookVDotNet.asi` | ScriptHookV .NET v3.7.0 runtime bridge |
 | `ScriptHookVDotNet2.dll` / `ScriptHookVDotNet3.dll` | SHVDN API assemblies |
 | `ScriptHookVDotNet.ini` | SHVDN configuration (Console: `F5`, Reload: `Insert`) |
-| `NativeTrainer.asi` | ScriptHookV Native Trainer (Menu: `F4`, Numpad navigation) |
+| `NativeTrainer.asi` | ScriptHookV Native Trainer (Menu: `F4`) |
 | `RageOpenV.asi` | Open-source RPF archive loader for the `mods` folder |
+| `mods/update/update.rpf` | Rebuilt archive containing ERO 1.9.4 behaviours & physicstasks |
+| `mods/common.rpf` | Rebuilt archive containing ERO 1.9.4 behaviours.xml |
+| `mods/x64a.rpf` | Rebuilt archive containing ERO 1.9.4 physicstasks.ymt |
 | `scripts/BeastGlove.dll` | Precompiled Beast Glove mod library |
-| `scripts/BeastGlove.cs` | Source script for Beast Glove |
-| `scripts/BeastGlove.ini` | User settings for speed, angle, damage, FX, and hotkey |
-| `ERO 1.9.4 by MiGGousT/` | Euphoria Ragdoll Overhaul package moved from Downloads |
-| `ERO1.9.4.oiv` | 1-Click OIV package for ERO |
-| `OpenIVSetup.exe` | OpenIV 4.1 offline installer |
+| `scripts/BeastGlove.cs` | Source script |
+| `scripts/BeastGlove.ini` | User settings for speeds, angles, and effects |
 
 ---
 
@@ -49,50 +48,45 @@ All core modding prerequisites and script files have been placed directly into y
 
 ```ini
 [Physics]
-; Launch speed in meters per second (46.0 achieves ~100m under GTA V ragdoll drag)
-LaunchSpeed = 46.0
+; Initial launch speed in m/s
+LaunchSpeed = 38.0
 
-; Upward angle in degrees (45.0 degrees is optimal projectile angle)
+; Launch angle in degrees (45.0 for maximum natural projectile arc)
 LaunchAngle = 45.0
 
-; How long the ped stays in ragdoll during flight (in milliseconds)
-RagdollDurationMs = 7000
+; Impulse multiplier applied to ragdoll bones
+ForceMultiplier = 40.0
+
+; Natural rotational spin torque so targets backflip and corkscrew
+SpinTorque = 3.5
 
 [Combat]
-; Damage dealt per punch
-PunchDamage = 100
+; Base punch damage (keeps target alive so Euphoria flailing is visible)
+PunchDamage = 25
 
 [Effects]
-; Visual air-burst dust shockwave particle effect
+; Sonic air-burst particle ring (no fire/explosions)
 PlayShockwaveFx = true
 
-; Heavy impact sound effect
+; Heavy impact audio blast
 PlaySoundFx = true
 
-; Physical camera shake
+; Punch camera shake
 CameraShake = true
 
 [Vehicles]
-; Whether vehicles also get launched when hit
+; Launch vehicles when punched with Knuckle Duster
 AffectVehicles = true
 
-; Velocity multiplier for vehicles
-VehicleSpeedMultiplier = 0.75
-
-[General]
-; Notification when equipping Knuckle Duster
-ShowEquipNotification = true
-
-; Hotkey to quickly spawn/equip Knuckle Duster (default: B)
-EquipHotkey = B
+; Vehicle speed multiplier
+VehicleSpeedMultiplier = 0.85
 ```
 
 ---
 
 ## 🚀 How to Play
 
-1. Launch **Grand Theft Auto V** (Single Player).
-2. Press **`B`** (or select the **Knuckle Duster** from your weapon wheel).
-3. A notification will appear: `BEAST GLOVE active!`.
-4. Punch any ped or vehicle.
-5. Watch them launch **100 meters** into the air at a **45° angle** and crash down with ERO Euphoria physics!
+1. Start **GTA V Single Player**.
+2. Equip the **Knuckle Duster** from your weapon wheel (or using `F4` Native Trainer).
+3. Punch any pedestrian or vehicle.
+4. The target will only launch when the punch connects, flipping and spinning naturally through the air with full Euphoria ragdoll physics!
