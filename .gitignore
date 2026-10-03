@@ -1,5 +1,24 @@
+# Archives and build artifacts
 *.zip
+*.tmp
+*.log
+dist/
+release/
+
+# Prerequisites & extraction folders
 shv/
 shvdn/
 rageopenv/
-*.tmp
+codewalker/
+
+# Scratch & inspection tools
+FindWeapons.*
+InspectEuphoria.*
+apply_force_decomp.txt
+
+# IDE / Build temporary files
+.vs/
+bin/
+obj/
+*.user
+*.suo
