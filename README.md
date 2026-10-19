@@ -1,3 +1,4 @@
+⚠️ This whole mod is fully vibecoded. Proceed at your own risk and morals, i do not care any more than that
 # BEAST Glove Mod for GTA V (Legacy Edition)
 
 Authentic **BEAST Glove** physics simulation for **Grand Theft Auto V Legacy** (`v1.0.3889.0`), integrated natively with **ERO (Euphoria Ragdoll Overhaul 1.9.4)**.
